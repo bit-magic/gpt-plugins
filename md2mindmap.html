@@ -30,11 +30,7 @@
                 mm.fit();
             }
         })()
-        function receiveMessage(e) {
-            console.log(e)
-            renderMindMap(e.data)
-        }
-        window.addEventListener('message', receiveMessage, false);
+        window.addEventListener('message', (e) => renderMindMap(e.data), false);
     </script>
 </body>
 
