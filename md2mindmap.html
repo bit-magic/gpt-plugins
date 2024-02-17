@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mindmap</title>
+    <style>
+        .flex {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view"></script>
+</head>
+
+<body>
+    <svg class="flex" id="svgref" />
+    <script>
+        const renderMindMap = (() => {
+            const { Transformer, Markmap } = window.markmap;
+            const transformer = new Transformer();
+            let mm = Markmap.create(document.getElementById('svgref'));
+            return (text) => {
+                const { root } = transformer.transform(text);
+                mm.setData(root);
+                mm.fit();
+            }
+        })()
+        function receiveMessage(e) {
+            console.log(e)
+            renderMindMap(e.data)
+        }
+        window.addEventListener('message', receiveMessage, false);
+    </script>
+</body>
+
+</html>
